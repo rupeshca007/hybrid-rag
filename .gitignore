@@ -13,7 +13,7 @@ env/
 *.env.local
 
 # ChromaDB (vector store data)
-chroma_db/
+# Removed chroma_db/ to bake into Docker image
 
 # Uploaded PDFs (large files)
 data/pdfs/*.pdf

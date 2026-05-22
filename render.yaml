@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: rag-backend
+    env: docker
+    dockerfilePath: Dockerfile.backend
+    plan: free
+    healthCheckPath: /docs
+    envVars:
+      - key: LLM_PROVIDER
+        value: groq
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: GROQ_API_KEY
+        sync: false
+      - key: COHERE_API_KEY
+        sync: false
+
+  - type: web
+    name: rag-frontend
+    env: docker
+    dockerfilePath: Dockerfile.frontend
+    plan: free
+    envVars:
+      - key: API_URL
+        fromService:
+          type: web
+          name: rag-backend
+          property: host
+          format: https://{host}
